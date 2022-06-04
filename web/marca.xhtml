@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>RolUsuario</title>
+    </h:head>
+    <h:body>
+        <h:form id="formrolUsuario">
+            <p:outputPanel id="outputPanelAddRolUsuario">
+                <p:panelGrid columns="1">
+                    <p:outputLabel for="rolUsuario" value="RolUsuario" />
+                    <p:inputText id="rolUsuario" value="#{rolUsuarioHelper.rolUsuario.rol}" required="true" requiredMessage="Campo requerido" validatorMessage="No valido"/>
+                    <p:message for="rolUsuario" />
+                    <p:outputLabel for="descripcion" value="Descripcion" />
+                    <p:inputText id="descripcion" value="#{rolUsuarioHelper.rolUsuario.usuario}" required="true" requiredMessage="Campo requerido" validatorMessage="No valido"/>
+                    <p:message for="descripcion" />
+                    <p:commandButton  id="commandButtonAddrolUsuario" action="#{rolUsuarioHelper.addRolUsuario()}" value="Guardar" process="@form" update="formrolUsuario2:dataTableRolUsuario outputPanelAddRolUsuario" rendered="#{not rolUsuarioHelper.edit}" />
+                    <p:commandButton  id="commandButtonUpdaterolUsuario" action="#{rolUsuarioHelper.updateRolUsuario()}" value="Actualizar" process="@form" update="formrolUsuario2:dataTableRolUsuario outputPanelAddRolUsuario" rendered="#{rolUsuarioHelper.edit}" />
+                </p:panelGrid>
+            </p:outputPanel>
+        </h:form>
+        <h:form id="formrolUsuario2">
+            <p:dataTable id="dataTableRolUsuario" var="rolUsuario" value="#{rolUsuarioHelper.rolUsuarioList}" style="margin-bottom:40px">
+                <f:facet name="header">
+                    RolUsuario
+                </f:facet>
+                <p:column headerText="ID" >
+                    <h:outputText value="#{rolUsuario.id}" />
+                </p:column>
+                <p:column headerText="Descripcion" >
+                    <h:outputText value="#{rolUsuario.rol}" />
+                </p:column>
+                <p:column headerText="Descripcion" >
+                    <h:outputText value="#{rolUsuario.usuario}" />
+                </p:column>
+                <p:column headerText="Acciones" >
+                    <p:commandButton  id="editar" action="#{rolUsuarioHelper.editRolUsuario( rolUsuario.id )}" value="Editar" process="@this" update="formrolUsuario:outputPanelAddRolUsuario"/>
+                    <p:commandButton  id="borrar" action="#{rolUsuarioHelper.deleteRolUsuario( rolUsuario.id )}" value="Borrar" process="@this" update="formrolUsuario2:dataTableRolUsuario"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
+
+
+
+
